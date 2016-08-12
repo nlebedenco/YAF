@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityStandardAssets.CrossPlatformInput;
 
-public class DirectionalPad : MonoBehaviour, IPointerUpHandler, IPointerDownHandler, IDragHandler
+public class Thumbstick : MonoBehaviour, IPointerUpHandler, IPointerDownHandler, IDragHandler
 {
     // Options for which axes to use
     public enum AxisOption
@@ -34,7 +34,7 @@ public class DirectionalPad : MonoBehaviour, IPointerUpHandler, IPointerDownHand
     private float backgroundAlpha;
 
     [SerializeField]
-    private RectTransform thumbstick;
+    private RectTransform grip;
 
     [SerializeField]
     private RectTransform limits;
@@ -94,7 +94,7 @@ public class DirectionalPad : MonoBehaviour, IPointerUpHandler, IPointerDownHand
         background.CrossFadeAlpha(0, fadeOutDuration, false);
         foreground.CrossFadeAlpha(1, fadeOutDuration, false);
 
-        thumbstick.anchoredPosition = Vector2.zero;
+        grip.anchoredPosition = Vector2.zero;
 
         if (useX)
             horizontalVirtualAxis.Update(0);
@@ -112,21 +112,30 @@ public class DirectionalPad : MonoBehaviour, IPointerUpHandler, IPointerDownHand
         background.CrossFadeAlpha(backgroundAlpha, fadeInDuration, false);
         foreground.CrossFadeAlpha(0.8f, fadeInDuration, false);
 
-        //UpdateThumbstick(data.position.x, data.position.y);
+        UpdateGrip(data.position.x, data.position.y);
     }
 
+    #endregion
+
+    #region IPointerClickHandler
+
+    public void OnPointerClick(PointerEventData data)
+    {
+        Debug.LogFormat("Click on: {0}", data.position);
+    }
+    
     #endregion
 
     #region IDragHandler
 
     public void OnDrag(PointerEventData data)
     {
-        UpdateThumbstick(data.position.x, data.position.y);
+        UpdateGrip(data.position.x, data.position.y);
     }
 
     #endregion  
 
-    private void UpdateThumbstick(float x, float y)
+    private void UpdateGrip(float x, float y)
     {
         float w = limits.rect.width;
         float h = limits.rect.height;
@@ -141,7 +150,7 @@ public class DirectionalPad : MonoBehaviour, IPointerUpHandler, IPointerDownHand
         if (useY)
             verticalVirtualAxis.Update(Mathf.Clamp(deltaY / h, -1, 1));
 
-        thumbstick.anchoredPosition = Vector2.ClampMagnitude(
+        grip.anchoredPosition = Vector2.ClampMagnitude(
             new Vector2(
                 useX ? deltaX : 0,
                 useY ? deltaY : 0
