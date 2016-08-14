@@ -66,7 +66,7 @@ namespace UnityStandardAssets.CrossPlatformInput
 
         private void CheckEnableControlRig()
         {
-#if UNITY_STANDALONE
+#if !MOBILE_INPUT
             EnableControlRig(true);
 #else
             EnableControlRig(false);

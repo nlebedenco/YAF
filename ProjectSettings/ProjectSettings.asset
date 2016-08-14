@@ -351,6 +351,7 @@ PlayerSettings:
     16: CROSS_PLATFORM_INPUT;MOBILE_INPUT
     17: MOBILE_INPUT
     20: MOBILE_INPUT
+    22: MOBILE_INPUT
   metroPackageName: YAC
   metroPackageVersion: 
   metroCertificatePath: 
