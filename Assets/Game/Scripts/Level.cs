@@ -12,6 +12,7 @@ public class Level: MonoBehaviour
 {
     public delegate void ScoreChangedEvent(float value);
     public delegate void HealthChangedEvent(float value);
+
     public delegate void LevelCompletedEvent();
     public delegate void LevelFailedEvent();
 

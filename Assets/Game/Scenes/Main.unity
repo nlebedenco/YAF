@@ -292,6 +292,7 @@ MonoBehaviour:
   menuSceneName: Menu
   creditsSceneName: Credits
   levelSceneName:
+  - Level-Thiago
   - Level-Nicolas
   splashGraphic: {fileID: 2105302257}
   fadeGraphic: {fileID: 1531171866}

@@ -9,8 +9,6 @@ public class Loading : MonoBehaviour
     [SerializeField]
     private ProgessBar progress;
 
-    private AsyncOperation operation;
-
     public void Show(AsyncOperation operation = null)
     {
         canvas.gameObject.SetActive(true);

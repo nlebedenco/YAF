@@ -12,10 +12,7 @@ public class ProgessBar: MonoBehaviour
     public AsyncOperation Operation
     {
         get { return operation;  }
-        set
-        {
-            operation = value;
-        }
+        set { operation = value; }
     }
 
 
