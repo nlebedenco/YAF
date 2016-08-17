@@ -30,24 +30,30 @@ public class GameSystemEditor : Editor
 
     #region Properties
 
-    private SerializedProperty hudOverlayProperty;
-    private SerializedProperty menuOverlayProperty;
-    private SerializedProperty optionsOverlayProperty;
-    private SerializedProperty shopSceneProperty;
-    private SerializedProperty creditsSceneProperty;
+    private SerializedProperty splashGraphicProperty;
+    private SerializedProperty fadeGraphicProperty;
+    private SerializedProperty fadeDurationProperty;
 
-    private SerializedProperty levelSceneProperty;
+    private SerializedProperty hudSceneNameProperty;
+    private SerializedProperty menuSceneNameProperty;
+    private SerializedProperty shopSceneNameProperty;
+    private SerializedProperty creditsSceneNameProperty;
+
+    private SerializedProperty levelSceneNameProperty;
     private ReorderableList levelList;
 
     #endregion
 
     #region Labels
 
-    private GUIContent hudOverlayLabel;
-    private GUIContent menuOverlayLabel;
-    private GUIContent optionsOverlayLabel;
-    private GUIContent shopSceneLabel;
-    private GUIContent creditsSceneLabel;
+    private GUIContent splashGraphicLabel;
+    private GUIContent fadeGraphicLabel;
+    private GUIContent fadeDurationLabel;
+
+    private GUIContent hudSceneNameLabel;
+    private GUIContent menuSceneNameLabel;
+    private GUIContent shopSceneNameLabel;
+    private GUIContent creditsSceneNameLabel;
     private GUIContent levelSceneLabel;
 
     #endregion
@@ -56,27 +62,34 @@ public class GameSystemEditor : Editor
 
     void OnEnable()
     {
-        hudOverlayLabel = new GUIContent("HUD Overlay");
-        menuOverlayLabel = new GUIContent("Menu Overlay");
-        optionsOverlayLabel = new GUIContent("Options Overlay");
-        shopSceneLabel = new GUIContent("Shop Scene");
-        creditsSceneLabel = new GUIContent("Credits Scene");
-        levelSceneLabel = new GUIContent();
+        // Properties
+        splashGraphicProperty = serializedObject.FindProperty("splashGraphic");
+        fadeGraphicProperty = serializedObject.FindProperty("fadeGraphic");
+        fadeDurationProperty = serializedObject.FindProperty("fadeDuration");
 
-        hudOverlayProperty = serializedObject.FindProperty("hudOverlay");
-        menuOverlayProperty = serializedObject.FindProperty("menuOverlay");
-        optionsOverlayProperty = serializedObject.FindProperty("optionsOverlay");
+        hudSceneNameProperty = serializedObject.FindProperty("hudSceneName");
+        menuSceneNameProperty = serializedObject.FindProperty("menuSceneName");
+        shopSceneNameProperty = serializedObject.FindProperty("shopSceneName");
+        creditsSceneNameProperty = serializedObject.FindProperty("creditsSceneName");
+        levelSceneNameProperty = serializedObject.FindProperty("levelSceneName");
 
-        shopSceneProperty = serializedObject.FindProperty("shopScene");
-        creditsSceneProperty = serializedObject.FindProperty("creditsScene");
-
-        levelSceneProperty = serializedObject.FindProperty("levelScene");
-
-        levelList = new ReorderableList(serializedObject, levelSceneProperty);
+        levelList = new ReorderableList(serializedObject, levelSceneNameProperty);
         levelList.elementHeight = 16; // The list uses a default 16x16 icon. Other sizes make it stretch.
 
         levelList.drawHeaderCallback = LevelListDrawHeader;
         levelList.drawElementCallback = LevelListDrawChild;
+
+        // Labels 
+
+        splashGraphicLabel = new GUIContent("Splash Graphic");
+        fadeGraphicLabel = new GUIContent("Fade Graphic");
+        fadeDurationLabel = new GUIContent("Fade Duration");
+        hudSceneNameLabel = new GUIContent("HUD");
+        menuSceneNameLabel = new GUIContent("Menu");
+        shopSceneNameLabel = new GUIContent("Shop");
+        creditsSceneNameLabel = new GUIContent("Credits");
+        levelSceneLabel = new GUIContent();
+
     }
 
     void OnDisable()
@@ -88,12 +101,27 @@ public class GameSystemEditor : Editor
     {
         serializedObject.Update();
 
+        EditorGUI.BeginDisabledGroup(Application.isPlaying);
+        ShowSplash();
+        ShowFade();
         ShowScenes();
+        EditorGUI.EndDisabledGroup();
 
         serializedObject.ApplyModifiedProperties();
     }
 
     #endregion
+
+    private void ShowSplash()
+    {
+        EditorGUILayout.PropertyField(splashGraphicProperty, splashGraphicLabel);
+    }
+
+    private void ShowFade()
+    {
+        EditorGUILayout.PropertyField(fadeGraphicProperty, fadeGraphicLabel);
+        EditorGUILayout.PropertyField(fadeDurationProperty, fadeDurationLabel);
+    }
 
     private void ShowScene(SerializedProperty property, GUIContent label, Rect? rect = null)
     {
@@ -121,11 +149,10 @@ public class GameSystemEditor : Editor
 
     private void ShowScenes()
     {
-        ShowScene(hudOverlayProperty, hudOverlayLabel);
-        ShowScene(menuOverlayProperty, menuOverlayLabel);
-        ShowScene(optionsOverlayProperty, optionsOverlayLabel);
-        ShowScene(shopSceneProperty, shopSceneLabel);
-        ShowScene(creditsSceneProperty, creditsSceneLabel);
+        ShowScene(hudSceneNameProperty, hudSceneNameLabel);
+        ShowScene(menuSceneNameProperty, menuSceneNameLabel);
+        ShowScene(shopSceneNameProperty, shopSceneNameLabel);
+        ShowScene(creditsSceneNameProperty, creditsSceneNameLabel);
 
         {
             float labelWidth = EditorGUIUtility.labelWidth;
@@ -150,7 +177,7 @@ public class GameSystemEditor : Editor
 
     private void LevelListDrawChild(Rect r, int index, bool isActive, bool isFocused)
     {
-        SerializedProperty element = levelSceneProperty.GetArrayElementAtIndex(index);
+        SerializedProperty element = levelSceneNameProperty.GetArrayElementAtIndex(index);
         levelSceneLabel.text = string.Format("{0}:", index);
         ShowScene(element, levelSceneLabel, r);
     }

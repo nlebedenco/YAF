@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityStandardAssets.CrossPlatformInput;
 
-public class DualTouchPanel: MonoBehaviour, IPointerUpHandler, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class MouseTrackerPanel: MonoBehaviour, IPointerUpHandler, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
     // Options for which axes to use
     public enum AxisOption
@@ -43,7 +43,7 @@ public class DualTouchPanel: MonoBehaviour, IPointerUpHandler, IPointerDownHandl
         private CrossPlatformInputManager.VirtualAxis horizontalVirtualAxis;
         public CrossPlatformInputManager.VirtualAxis HorizontalVirtualAxis
         {
-            get {  return horizontalVirtualAxis; }
+            get { return horizontalVirtualAxis; }
         }
 
         private CrossPlatformInputManager.VirtualAxis verticalVirtualAxis;
@@ -110,12 +110,9 @@ public class DualTouchPanel: MonoBehaviour, IPointerUpHandler, IPointerDownHandl
             releaseVerticalAxis();
         }
     }
-   
+
     [SerializeField]
-    private InputControl dragLeft;
-   
-    [SerializeField]
-    private InputControl dragRight;
+    private InputControl drag;
 
     [SerializeField]
     private bool tapEnabled;
@@ -133,8 +130,7 @@ public class DualTouchPanel: MonoBehaviour, IPointerUpHandler, IPointerDownHandl
 #if UNITY_EDITOR
     void Reset()
     {
-        dragLeft.Reset();
-        dragRight.Reset();
+        drag.Reset();
 
         tapEnabled = false;
         tap.Reset();
@@ -143,9 +139,7 @@ public class DualTouchPanel: MonoBehaviour, IPointerUpHandler, IPointerDownHandl
 
     void OnEnable()
     {
-        dragLeft.Activate();
-
-        dragRight.Activate();
+        drag.Activate();
 
         if (tapEnabled)
             tap.Activate();
@@ -153,8 +147,7 @@ public class DualTouchPanel: MonoBehaviour, IPointerUpHandler, IPointerDownHandl
 
     void OnDisable()
     {
-        dragLeft.Deactivate();
-        dragRight.Deactivate();
+        drag.Deactivate();
         tap.Deactivate();
     }
 
@@ -174,14 +167,13 @@ public class DualTouchPanel: MonoBehaviour, IPointerUpHandler, IPointerDownHandl
 
     #endregion
 
+
+
     #region Drag 
 
     public void OnBeginDrag(PointerEventData data)
     {
-        RectTransform rectTransform = (RectTransform)transform;
-        Vector2 size = Vector2.Scale(rectTransform.rect.size, rectTransform.lossyScale);
-
-        Vector2 point;         
+        Vector2 point;
         if (tap.Pointer == data.pointerId)
         {
             tap.Pointer = int.MinValue;
@@ -192,83 +184,46 @@ public class DualTouchPanel: MonoBehaviour, IPointerUpHandler, IPointerDownHandl
             point = data.position;
         }
 
-        float m = size.x / 2;
-        float x = point.x;
-        if (x < m)
+        if (drag.Pointer == int.MinValue)
         {
-            if (dragLeft.Pointer == int.MinValue)
-            {
-                dragLeft.Pointer = data.pointerId;
-                dragLeft.Origin = point;
-            }
-        }
-        else
-        {
-            if (dragRight.Pointer == int.MinValue)
-            {
-                dragRight.Pointer = data.pointerId;
-                dragRight.Origin = point;
-            }
+            drag.Pointer = data.pointerId;
+            drag.Origin = data.position;
+            Cursor.visible = false;
         }
     }
 
     public void OnDrag(PointerEventData data)
     {
-        if (dragLeft.Pointer == data.pointerId)
+        if (drag.Pointer == data.pointerId)
         {
             Vector2 size = Vector2.Scale(dragRange.rect.size, dragRange.lossyScale);
 
-            if (dragLeft.UseX)
+            if (drag.UseX)
             {
-                float deltaX = data.position.x - dragLeft.Origin.x;
-                dragLeft.HorizontalVirtualAxis.Update(Mathf.Clamp(deltaX / size.x, -1, 1));
+                float deltaX = data.position.x - drag.Origin.x;
+                drag.HorizontalVirtualAxis.Update(Mathf.Clamp(deltaX / size.x, -1, 1));
             }
 
-            if (dragLeft.UseY)
+            if (drag.UseY)
             {
-                float deltaY = data.position.y - dragLeft.Origin.y;
-                dragLeft.VerticalVirtualAxis.Update(Mathf.Clamp(deltaY / size.y, -1, 1));
-            }
-        }
-        else if (dragRight.Pointer == data.pointerId)
-        {
-            Vector2 size = Vector2.Scale(dragRange.rect.size, dragRange.lossyScale);
-
-            if (dragRight.UseX)
-            {
-                float deltaX = data.position.x - dragRight.Origin.x;
-                dragRight.HorizontalVirtualAxis.Update(Mathf.Clamp(deltaX / size.x, -1, 1));
-            }
-
-            if (dragRight.UseY)
-            {
-                float deltaY = data.position.y - dragRight.Origin.y;
-                dragRight.VerticalVirtualAxis.Update(Mathf.Clamp(deltaY / size.y, -1, 1));
+                float deltaY = data.position.y - drag.Origin.y;
+                drag.VerticalVirtualAxis.Update(Mathf.Clamp(deltaY / size.y, -1, 1));
             }
         }
     }
 
     public void OnEndDrag(PointerEventData data)
     {
-        if (dragLeft.Pointer == data.pointerId)
+        if (drag.Pointer == data.pointerId)
         {
-            if (dragLeft.UseX)
-                dragLeft.HorizontalVirtualAxis.Update(0);
+            if (drag.UseX)
+                drag.HorizontalVirtualAxis.Update(0);
 
-            if (dragLeft.UseY)
-                dragLeft.VerticalVirtualAxis.Update(0);
+            if (drag.UseY)
+                drag.VerticalVirtualAxis.Update(0);
 
-            dragLeft.Pointer = int.MinValue;
-        }
-        else if (dragRight.Pointer == data.pointerId)
-        {
-            if (dragRight.UseX)
-                dragRight.HorizontalVirtualAxis.Update(0);
-
-            if (dragRight.UseY)
-                dragRight.VerticalVirtualAxis.Update(0);
-
-            dragRight.Pointer = int.MinValue;
+            drag.Pointer = int.MinValue;
+            Cursor.visible = true;
         }
     }
 

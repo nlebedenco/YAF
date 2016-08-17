@@ -14,10 +14,10 @@ TagManager:
   - 
   - 
   - UI.Menu
-  - UI.Options
   - UI.HUD
   - UI.Credits
   - UI.Shop
+  - UI.Fade
   - 
   - 
   - 

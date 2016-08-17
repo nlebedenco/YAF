@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-public class Level: MonoBehaviour
+public class Shop : MonoBehaviour
 {
     #region MonoBehaviour
 
     void Awake()
     {
-        GameSystem.RegisterLevel(this);
+        GameSystem.RegisterModule(this);
     }
 
     void OnDestroy()

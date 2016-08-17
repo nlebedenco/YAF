@@ -17,3 +17,5 @@ EditorBuildSettings:
     path: Assets/Game/Scenes/Overlays/Menu.unity
   - enabled: 1
     path: Assets/Game/Scenes/Overlays/Options.unity
+  - enabled: 1
+    path: Assets/Game/Scenes/Levels/Level-Nicolas.unity

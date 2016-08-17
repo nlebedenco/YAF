@@ -21,6 +21,7 @@ public class AutoScroll: MonoBehaviour
     private RectTransform viewport;
 
     private float elapsed = 0;
+    private bool started = false;
 
     public void Restart()
     {
@@ -30,7 +31,8 @@ public class AutoScroll: MonoBehaviour
 
     private void ResetPosition()
     {
-        rectTransform.position = startPosition;
+        if (started)
+            rectTransform.anchoredPosition = startPosition;
     }
 
     #region MonoBehaviour
@@ -43,17 +45,26 @@ public class AutoScroll: MonoBehaviour
 
     void Start()
     {
-        startPosition = rectTransform.position;
+        StartCoroutine(delayedStart());
     }
 
-	// Update is called once per frame
+    private IEnumerator delayedStart()
+    {
+        yield return new WaitForEndOfFrame();
+        startPosition = rectTransform.anchoredPosition;
+        started = true;
+    }
+
 	void Update()
     {
+        if (!started)
+            return;
+
         if (elapsed < delay)
         {
             elapsed += Time.unscaledDeltaTime;
         }
-        else 
+        else
         {
             Vector2 velocity;
             switch (direction)

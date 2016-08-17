@@ -1,15 +1,35 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HUD : MonoBehaviour {
+public class Hud: MonoBehaviour
+{
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public delegate void PauseButtonClickedEvent();
+
+    #region MonoBehaviour
+
+    void Awake()
+    {
+        GameSystem.RegisterModule(this);
+    }
+
+    void OnDestroy()
+    {
+        PauseButtonClicked = null;
+    }
+
+    #endregion
+
+    #region Delegates
+
+    public PauseButtonClickedEvent PauseButtonClicked;
+
+    protected void OnPauseButtonClicked()
+    {
+        var handler = PauseButtonClicked;
+        if (handler != null)
+            handler();
+    }
+
+    #endregion
 }
