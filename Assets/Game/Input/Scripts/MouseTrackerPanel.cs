@@ -187,7 +187,7 @@ public class MouseTrackerPanel: MonoBehaviour, IPointerUpHandler, IPointerDownHa
         if (drag.Pointer == int.MinValue)
         {
             drag.Pointer = data.pointerId;
-            drag.Origin = data.position;
+            drag.Origin = point;
             Cursor.visible = false;
         }
     }

@@ -18,7 +18,6 @@ public class AutoScroll: MonoBehaviour
 
     private Vector2 startPosition;
     private RectTransform rectTransform;
-    private RectTransform viewport;
 
     private float elapsed = 0;
     private bool started = false;
@@ -40,7 +39,6 @@ public class AutoScroll: MonoBehaviour
     void Awake()
     {
         rectTransform = (RectTransform)transform;
-        viewport = GetComponentInParent<RectTransform>();
     }
 
     void Start()

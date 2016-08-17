@@ -14,7 +14,7 @@ public class Menu : MonoBehaviour
     private Canvas canvas;
 
     [SerializeField]
-    private Camera camera;
+    private new Camera camera;
 
     [SerializeField]
     private RectTransform menu;

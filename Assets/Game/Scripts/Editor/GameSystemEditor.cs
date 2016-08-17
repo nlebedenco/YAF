@@ -34,9 +34,9 @@ public class GameSystemEditor : Editor
     private SerializedProperty fadeGraphicProperty;
     private SerializedProperty fadeDurationProperty;
 
+    private SerializedProperty loadingSceneNameProperty;
     private SerializedProperty hudSceneNameProperty;
     private SerializedProperty menuSceneNameProperty;
-    private SerializedProperty shopSceneNameProperty;
     private SerializedProperty creditsSceneNameProperty;
 
     private SerializedProperty levelSceneNameProperty;
@@ -50,9 +50,9 @@ public class GameSystemEditor : Editor
     private GUIContent fadeGraphicLabel;
     private GUIContent fadeDurationLabel;
 
+    private GUIContent loadingSceneNameLabel;
     private GUIContent hudSceneNameLabel;
     private GUIContent menuSceneNameLabel;
-    private GUIContent shopSceneNameLabel;
     private GUIContent creditsSceneNameLabel;
     private GUIContent levelSceneLabel;
 
@@ -67,9 +67,9 @@ public class GameSystemEditor : Editor
         fadeGraphicProperty = serializedObject.FindProperty("fadeGraphic");
         fadeDurationProperty = serializedObject.FindProperty("fadeDuration");
 
+        loadingSceneNameProperty = serializedObject.FindProperty("loadingSceneName");
         hudSceneNameProperty = serializedObject.FindProperty("hudSceneName");
         menuSceneNameProperty = serializedObject.FindProperty("menuSceneName");
-        shopSceneNameProperty = serializedObject.FindProperty("shopSceneName");
         creditsSceneNameProperty = serializedObject.FindProperty("creditsSceneName");
         levelSceneNameProperty = serializedObject.FindProperty("levelSceneName");
 
@@ -84,16 +84,11 @@ public class GameSystemEditor : Editor
         splashGraphicLabel = new GUIContent("Splash Graphic");
         fadeGraphicLabel = new GUIContent("Fade Graphic");
         fadeDurationLabel = new GUIContent("Fade Duration");
+        loadingSceneNameLabel = new GUIContent("Loading Screen");
         hudSceneNameLabel = new GUIContent("HUD");
         menuSceneNameLabel = new GUIContent("Menu");
-        shopSceneNameLabel = new GUIContent("Shop");
         creditsSceneNameLabel = new GUIContent("Credits");
         levelSceneLabel = new GUIContent();
-
-    }
-
-    void OnDisable()
-    {
 
     }
 
@@ -149,9 +144,9 @@ public class GameSystemEditor : Editor
 
     private void ShowScenes()
     {
+        ShowScene(loadingSceneNameProperty, loadingSceneNameLabel);
         ShowScene(hudSceneNameProperty, hudSceneNameLabel);
         ShowScene(menuSceneNameProperty, menuSceneNameLabel);
-        ShowScene(shopSceneNameProperty, shopSceneNameLabel);
         ShowScene(creditsSceneNameProperty, creditsSceneNameLabel);
 
         {

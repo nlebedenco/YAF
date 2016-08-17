@@ -10,16 +10,21 @@ public class GameSystem: MonoBehaviour
     public enum Modules
     {
         None = 0,
-        Hud = 1,
-        Menu = 2,
-        Shop = 4,
+        Loading = 1,
+        Hud = 2,
+        Menu = 4,
         Credits = 8,
-        All = Hud | Menu | Shop | Credits
+        All = Loading | Hud | Menu | Credits
     }
 
     #region Static
 
     private static GameSystem instance;
+
+    public static void RegisterModule(Loading module)
+    {
+        instance.registerModule(module);
+    }
 
     public static void RegisterModule(Hud module)
     {
@@ -27,11 +32,6 @@ public class GameSystem: MonoBehaviour
     }
 
     public static void RegisterModule(Menu module)
-    {
-        instance.registerModule(module);
-    }
-
-    public static void RegisterModule(Shop module)
     {
         instance.registerModule(module);
     }
@@ -51,13 +51,13 @@ public class GameSystem: MonoBehaviour
     #region Scene Names
 
     [SerializeField]
+    private string loadingSceneName = string.Empty;
+
+    [SerializeField]
     private string hudSceneName = string.Empty;
 
     [SerializeField]
     private string menuSceneName = string.Empty;
-
-    [SerializeField]
-    private string shopSceneName = string.Empty;
 
     [SerializeField]
     private string creditsSceneName = string.Empty;
@@ -76,11 +76,13 @@ public class GameSystem: MonoBehaviour
     [SerializeField]
     private float fadeDuration = 1.0f;
 
+    private Loading Loading;
     private Hud Hud;
     private Menu Menu;
-    private Shop Shop;
     private Credits Credits;
     private Level Level;
+
+    private int levelIndex = 0;
 
     private bool loaded = false;
     private Modules loading = Modules.All;
@@ -94,10 +96,18 @@ public class GameSystem: MonoBehaviour
         }
     }
 
+    private void registerModule(Loading module)
+    {
+        Loading = module;
+        setLoaded(Modules.Loading);
+    }
+
     private void registerModule(Hud module)
     {
         Hud = module;
+
         module.PauseButtonClicked += hud_PauseButtonClicked;
+
         setLoaded(Modules.Hud);
     }
 
@@ -106,19 +116,11 @@ public class GameSystem: MonoBehaviour
         Menu = module;
 
         module.RetryButtonClicked += menu_RetryButtonClicked;
-        module.ShopButtonClicked += menu_ShopButtonClicked;
         module.PlayButtonClicked += menu_PlayButtonClicked;
         module.ResumeButtonClicked += menu_ResumeButtonClicked;
         module.CreditsButtonClicked += menu_CreditsButtonClicked;
 
         setLoaded(Modules.Menu);
-    }
-
-    private void registerModule(Shop module)
-    {
-        Shop = module;
-
-        setLoaded(Modules.Shop);
     }
 
     private void registerModule(Credits module)
@@ -133,6 +135,12 @@ public class GameSystem: MonoBehaviour
     private void registerLevel(Level level)
     {
         Level = level;
+
+        level.LevelCompleted += level_LevelCompleted;
+        level.LevelFailed += level_LevelFailed;
+        level.ScoreChanged += level_ScoreChanged;
+        level.HealthChanged += level_HealthChanged;
+
         OnLevelLoaded();
     }
 
@@ -140,7 +148,9 @@ public class GameSystem: MonoBehaviour
 
     private void hud_PauseButtonClicked()
     {
-
+        Level.Pause();
+        Hud.Hide();
+        Menu.Show();
     }
 
     #endregion
@@ -149,22 +159,18 @@ public class GameSystem: MonoBehaviour
 
     private void menu_RetryButtonClicked()
     {
-
-    }
-
-    private void menu_ShopButtonClicked()
-    {
-
+        Menu.Hide();
+        LoadLevel(levelIndex);
     }
 
     private void menu_PlayButtonClicked()
     {
-
+        PlayLevel();
     }
 
     private void menu_ResumeButtonClicked()
     {
-
+        PlayLevel();
     }
 
     private void menu_CreditsButtonClicked()
@@ -172,10 +178,6 @@ public class GameSystem: MonoBehaviour
         Menu.Hide();
         Credits.Show();
     }
-
-    #endregion
-
-    #region Shop Handler
 
     #endregion
 
@@ -189,56 +191,112 @@ public class GameSystem: MonoBehaviour
 
     #endregion
 
+    #region Level Handlers
+
+    private void level_LevelCompleted()
+    {
+        Hud.Hide();
+        Menu.Show();
+    }
+
+    private void level_LevelFailed()
+    {
+        Hud.Hide();
+        Menu.Show();
+    }
+
+    private void level_ScoreChanged(float value)
+    {
+        Hud.Score = value;
+    }
+
+
+    private void level_HealthChanged(float value)
+    {
+        Hud.Health = value;
+    }
+
+    #endregion
+
     private void LoadModules()
     {
+        SceneManager.LoadSceneAsync(loadingSceneName, LoadSceneMode.Additive);
         SceneManager.LoadSceneAsync(hudSceneName, LoadSceneMode.Additive);
         SceneManager.LoadSceneAsync(menuSceneName, LoadSceneMode.Additive);
-        SceneManager.LoadSceneAsync(shopSceneName, LoadSceneMode.Additive);
         SceneManager.LoadSceneAsync(creditsSceneName, LoadSceneMode.Additive);
     }
 
     private void LoadLevel(int index)
     {
-        SceneManager.LoadSceneAsync(levelSceneName[index], LoadSceneMode.Additive);
+        if (Level != null)
+            SceneManager.UnloadScene(Level.gameObject.scene);
+
+        var operation = SceneManager.LoadSceneAsync(levelSceneName[index], LoadSceneMode.Additive);
+        Loading.Show(operation);
+    }
+
+    private void PlayLevel()
+    {
+        Menu.Hide();
+        switch (Level.State)
+        {
+            case LevelState.Paused:
+                Hud.Show();
+                Level.Resume();
+                break;
+            case LevelState.Completed:
+                levelIndex++;
+                levelIndex %= levelSceneName.Length;
+                LoadLevel(levelIndex);
+                break;
+            case LevelState.Failed:
+                LoadLevel(levelIndex);
+                break;
+            default:
+                break;
+        }
     }
 
     private void OnModulesLoaded()
     {
-        FadeOut();
+        ReleaseSplash();
+        LoadLevel(levelIndex);
     }
 
     private void OnLevelLoaded()
     {
-
+        SetLevelActive();
+        Loading.Hide();
+        Hud.Show();
+        Level.Resume();
     }
 
-    private void OnFadeInComplete()
+    private IEnumerator delayedSetLevelActive()
     {
-
+        yield return new WaitForEndOfFrame();
+        SceneManager.SetActiveScene(Level.gameObject.scene);
     }
 
-    private void OnFadeOutComplete()
+    private void SetLevelActive()
     {
-        Menu.Show();
-        DestroySplash();
-        FadeIn();
+        StartCoroutine(delayedSetLevelActive());
     }
 
-    private void DestroySplash()
+    #region Splash
+
+    private void ShowSplash()
     {
-        var go = splashGraphic.gameObject;
-        Destroy(go);
+        splashGraphic.gameObject.SetActive(true);
     }
 
-    private void FadeOut()
+    private void ReleaseSplash()
     {
-        StartCoroutine(FadeOutCoroutine());
+        Destroy(splashGraphic.gameObject);
     }
 
-    private void FadeIn()
-    {
-        StartCoroutine(FadeInCoroutine());
-    }
+    #endregion
+
+    #region Fade 
 
     private IEnumerator FadeOutCoroutine()
     {
@@ -255,6 +313,28 @@ public class GameSystem: MonoBehaviour
         fadeGraphic.gameObject.SetActive(false);
         OnFadeInComplete();
     }
+
+    private void FadeOut()
+    {
+        StartCoroutine(FadeOutCoroutine());
+    }
+
+    private void FadeIn()
+    {
+        StartCoroutine(FadeInCoroutine());
+    }
+
+    private void OnFadeInComplete()
+    {
+
+    }
+
+    private void OnFadeOutComplete()
+    {
+        
+    }
+
+    #endregion   
 
     #region MonoBehaviour
 
@@ -280,11 +360,7 @@ public class GameSystem: MonoBehaviour
     {
         Input.simulateMouseWithTouches = false;
 
-        splashGraphic.gameObject.SetActive(true);
-
-        fadeGraphic.CrossFadeAlpha(0, 0, true);
-
-        // TODO: Load save settings
+        ShowSplash();
 
         LoadModules();
     }

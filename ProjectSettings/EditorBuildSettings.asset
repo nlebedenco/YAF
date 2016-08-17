@@ -8,14 +8,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Game/Scenes/Main.unity
   - enabled: 1
-    path: Assets/Game/Scenes/Screens/Shop.unity
+    path: Assets/Game/Scenes/Loading.unity
   - enabled: 1
-    path: Assets/Game/Scenes/Screens/Credits.unity
+    path: Assets/Game/Scenes/Hud.unity
   - enabled: 1
-    path: Assets/Game/Scenes/Overlays/Hud.unity
+    path: Assets/Game/Scenes/Menu.unity
   - enabled: 1
-    path: Assets/Game/Scenes/Overlays/Menu.unity
-  - enabled: 1
-    path: Assets/Game/Scenes/Overlays/Options.unity
+    path: Assets/Game/Scenes/Credits.unity
   - enabled: 1
     path: Assets/Game/Scenes/Levels/Level-Nicolas.unity
