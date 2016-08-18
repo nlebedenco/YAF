@@ -19,6 +19,54 @@ public class GameSystem: MonoBehaviour
 
     #region Static
 
+    #region Preferences
+
+    private static readonly string PREF_SOUND_MUSIC_VOLUME = "Sound.Music.Volume";
+    private static readonly string PREF_SOUND_SFX_VOLUME = "Sound.Music.Volume";
+    private static readonly string PREF_SOUND_VOICES_VOLUME = "Sound.Music.Volume";
+
+    private static void LoadPreferences()
+    {
+        musicVolume = PlayerPrefs.GetFloat(PREF_SOUND_MUSIC_VOLUME);
+        sfxVolume = PlayerPrefs.GetFloat(PREF_SOUND_SFX_VOLUME);
+        voicesVolume = PlayerPrefs.GetFloat(PREF_SOUND_VOICES_VOLUME);
+    }
+
+    private static float musicVolume;
+    public static float MusicVolume
+    {
+        get { return musicVolume; }
+        set
+        {
+            musicVolume = value;
+            PlayerPrefs.SetFloat(PREF_SOUND_MUSIC_VOLUME, value);
+        }
+    }
+
+    private static float sfxVolume;
+    public static float SfxVolume
+    {
+        get { return sfxVolume; }
+        set
+        {
+            sfxVolume = value;
+            PlayerPrefs.SetFloat(PREF_SOUND_SFX_VOLUME, value);
+        }
+    }
+
+    private static float voicesVolume;
+    public static float VoicesVolume
+    {
+        get { return voicesVolume; }
+        set
+        {
+            voicesVolume = value;
+            PlayerPrefs.SetFloat(PREF_SOUND_VOICES_VOLUME, value);
+        }
+    }
+
+    #endregion
+
     private static GameSystem instance;
 
     public static void RegisterModule(Loading module)
@@ -220,6 +268,16 @@ public class GameSystem: MonoBehaviour
 
     private void LoadModules()
     {
+        if (SceneManager.sceneCount > 1)
+        {
+            Debug.LogError("Invalid scenes loaded.");
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
+        }
+
         SceneManager.LoadSceneAsync(loadingSceneName, LoadSceneMode.Additive);
         SceneManager.LoadSceneAsync(hudSceneName, LoadSceneMode.Additive);
         SceneManager.LoadSceneAsync(menuSceneName, LoadSceneMode.Additive);
@@ -282,7 +340,7 @@ public class GameSystem: MonoBehaviour
         StartCoroutine(delayedSetLevelActive());
     }
 
-    #region Splash
+#region Splash
 
     private void ShowSplash()
     {
@@ -294,9 +352,9 @@ public class GameSystem: MonoBehaviour
         Destroy(splashGraphic.gameObject);
     }
 
-    #endregion
+#endregion
 
-    #region Fade 
+#region Fade 
 
     private IEnumerator FadeOutCoroutine()
     {
@@ -334,9 +392,9 @@ public class GameSystem: MonoBehaviour
         
     }
 
-    #endregion   
+#endregion
 
-    #region MonoBehaviour
+#region MonoBehaviour
 
 #if UNITY_EDITOR
     void OnValidate()
@@ -348,7 +406,10 @@ public class GameSystem: MonoBehaviour
     void Awake()
     {
         if (instance == null)
+        {
             instance = this;
+            LoadPreferences();
+        }
         else
         {
             Debug.LogFormat("GameSystem already exists. Duplicate ('{0}') will be destroyed.", gameObject.name);
@@ -365,5 +426,5 @@ public class GameSystem: MonoBehaviour
         LoadModules();
     }
 
-    #endregion
+#endregion
 }

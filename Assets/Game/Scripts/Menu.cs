@@ -108,6 +108,21 @@ public class Menu : MonoBehaviour
         OnCreditsButtonClicked();
     }
 
+    public void sliderMusicVolume_OnValueChanged(float value)
+    {
+        GameSystem.MusicVolume = value;    
+    }
+
+    public void sliderSfxVolume_OnValueChanged(float value)
+    {
+        GameSystem.SfxVolume = value;
+    }
+
+    public void sliderVoicesVolume_OnValueChanged(float value)
+    {
+        GameSystem.VoicesVolume = value;
+    }
+
     #endregion
 
     #region Delegates
