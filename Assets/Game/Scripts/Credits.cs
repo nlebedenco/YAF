@@ -13,11 +13,15 @@ public class Credits: MonoBehaviour
     [SerializeField]
     private AutoScroll scroll;
 
+    [SerializeField]
+    private AutoPlayAnimations playAnimations;
+
     public void Show()
     {
         canvas.gameObject.SetActive(true);
         camera.gameObject.SetActive(true);
         scroll.Restart();
+        playAnimations.Restart();
     }
 
     public void Hide()

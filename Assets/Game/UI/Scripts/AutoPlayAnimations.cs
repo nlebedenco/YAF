@@ -12,6 +12,12 @@ public class AutoPlayAnimations : MonoBehaviour
     private Animator animator;
     private List<string> animations;
 
+    public void Restart()
+    {
+        elapsed = 0.0f;
+        lastPlayedIdx = 0;
+    }
+
     #region MonoBehaviour
 
     void Awake()
@@ -49,11 +55,6 @@ public class AutoPlayAnimations : MonoBehaviour
             }
             elapsed = 0;
         }
-    }
-
-    void OnEnable() {
-        elapsed = 0.0f;
-        lastPlayedIdx = 0;
     }
 
     #endregion

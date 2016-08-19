@@ -2180,6 +2180,12 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224000013482588612, guid: 95377b8c131a34199ab42e721bec4df8,
     type: 2}
   m_PrefabInternal: {fileID: 119977892}
+--- !u!114 &119977894 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000010700499820, guid: 95377b8c131a34199ab42e721bec4df8,
+    type: 2}
+  m_PrefabInternal: {fileID: 119977892}
+  m_Script: {fileID: -113659843, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1 &147645945
 GameObject:
   m_ObjectHideFlags: 0
@@ -9184,6 +9190,12 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224000013482588612, guid: 95377b8c131a34199ab42e721bec4df8,
     type: 2}
   m_PrefabInternal: {fileID: 1456738988}
+--- !u!114 &1456738990 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000010700499820, guid: 95377b8c131a34199ab42e721bec4df8,
+    type: 2}
+  m_PrefabInternal: {fileID: 1456738988}
+  m_Script: {fileID: -113659843, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1 &1459889190
 GameObject:
   m_ObjectHideFlags: 0
@@ -9614,6 +9626,12 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224000013482588612, guid: 95377b8c131a34199ab42e721bec4df8,
     type: 2}
   m_PrefabInternal: {fileID: 1490320302}
+--- !u!114 &1490320304 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000010700499820, guid: 95377b8c131a34199ab42e721bec4df8,
+    type: 2}
+  m_PrefabInternal: {fileID: 1490320302}
+  m_Script: {fileID: -113659843, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1 &1491343774
 GameObject:
   m_ObjectHideFlags: 0
@@ -12497,6 +12515,9 @@ MonoBehaviour:
   camera: {fileID: 659848544}
   menu: {fileID: 1324267651}
   options: {fileID: 589962333}
+  sliderMusicVolume: {fileID: 119977894}
+  sliderSfxVolume: {fileID: 1490320304}
+  sliderVoicesVolume: {fileID: 1456738990}
 --- !u!1 &2081261177
 GameObject:
   m_ObjectHideFlags: 0

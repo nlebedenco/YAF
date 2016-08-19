@@ -11762,6 +11762,7 @@ MonoBehaviour:
   canvas: {fileID: 434174602}
   camera: {fileID: 349296134}
   scroll: {fileID: 73806477}
+  playAnimations: {fileID: 1879171827}
 --- !u!1 &1932938988
 GameObject:
   m_ObjectHideFlags: 0

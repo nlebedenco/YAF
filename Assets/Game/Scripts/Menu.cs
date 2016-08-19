@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class Menu : MonoBehaviour
@@ -21,6 +22,15 @@ public class Menu : MonoBehaviour
 
     [SerializeField]
     private RectTransform options;
+
+    [SerializeField]
+    private Slider sliderMusicVolume;
+
+    [SerializeField]
+    private Slider sliderSfxVolume;
+
+    [SerializeField]
+    private Slider sliderVoicesVolume;
 
     public void Show()
     {
@@ -48,6 +58,10 @@ public class Menu : MonoBehaviour
     private void ShowOptions()
     {
         menu.gameObject.SetActive(false);
+
+        sliderMusicVolume.value = GameSystem.MusicVolume;
+        sliderSfxVolume.value = GameSystem.SfxVolume;
+        sliderVoicesVolume.value = GameSystem.VoicesVolume;
         options.gameObject.SetActive(true);
     }
 
