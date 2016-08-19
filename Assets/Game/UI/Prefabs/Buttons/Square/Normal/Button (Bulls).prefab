@@ -45,8 +45,6 @@ GameObject:
   - 114: {fileID: 11489452}
   - 222: {fileID: 22285174}
   - 114: {fileID: 11478238}
-  - 114: {fileID: 11410950}
-  - 114: {fileID: 11495490}
   m_Layer: 5
   m_Name: Button (Bulls)
   m_TagString: Untagged
@@ -71,17 +69,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &11410950
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 172326}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2e1ce3fe4b4851478e36a2f9a4db54b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11458012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -231,25 +218,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &11495490
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 172326}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a10c8b0272ac0b444b2896a780d18820, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Offset: {x: 0, y: 0}
-  m_Borders:
-    m_Left: 22
-    m_Right: 22
-    m_Top: 22
-    m_Bottom: 22
-  m_ScaleX: 1
-  m_ScaleY: 1
 --- !u!222 &22209820
 CanvasRenderer:
   m_ObjectHideFlags: 1

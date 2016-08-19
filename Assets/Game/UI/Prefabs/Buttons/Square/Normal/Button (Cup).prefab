@@ -45,8 +45,6 @@ GameObject:
   - 114: {fileID: 11436730}
   - 222: {fileID: 22281528}
   - 114: {fileID: 11448792}
-  - 114: {fileID: 11479108}
-  - 114: {fileID: 11487828}
   m_Layer: 5
   m_Name: Button (Cup)
   m_TagString: Untagged
@@ -166,17 +164,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &11479108
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 157382}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2e1ce3fe4b4851478e36a2f9a4db54b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11479508
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -204,25 +191,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &11487828
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 157382}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a10c8b0272ac0b444b2896a780d18820, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Offset: {x: 0, y: 0}
-  m_Borders:
-    m_Left: 22
-    m_Right: 22
-    m_Top: 22
-    m_Bottom: 22
-  m_ScaleX: 1
-  m_ScaleY: 1
 --- !u!114 &11493410
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -8,16 +8,21 @@ public class Credits: MonoBehaviour
     private Canvas canvas;
 
     [SerializeField]
+    private new Camera camera;
+
+    [SerializeField]
     private AutoScroll scroll;
 
     public void Show()
     {
         canvas.gameObject.SetActive(true);
+        camera.gameObject.SetActive(true);
         scroll.Restart();
     }
 
     public void Hide()
     {
+        camera.gameObject.SetActive(false);
         canvas.gameObject.SetActive(false);
     }
 
