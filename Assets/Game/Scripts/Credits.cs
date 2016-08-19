@@ -8,7 +8,7 @@ public class Credits: MonoBehaviour
     private Canvas canvas;
 
     [SerializeField]
-    private new Camera camera;
+    private Camera camera;
 
     [SerializeField]
     private AutoScroll scroll;
