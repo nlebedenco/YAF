@@ -7,40 +7,24 @@ namespace UnityStandardAssets.CrossPlatformInput.PlatformSpecific
     {
         public override float GetAxis(string name, bool raw)
         {
-            CrossPlatformInputManager.VirtualAxis axis;
-            if (m_VirtualAxes.TryGetValue(name, out axis))
-                return axis.GetValue;
-
             return raw ? Input.GetAxisRaw(name) : Input.GetAxis(name);
         }
 
 
         public override bool GetButton(string name)
         {
-            CrossPlatformInputManager.VirtualButton button;
-            if (m_VirtualButtons.TryGetValue(name, out button))
-                return button.GetButton;
-
             return Input.GetButton(name);
         }
 
 
         public override bool GetButtonDown(string name)
         {
-            CrossPlatformInputManager.VirtualButton button;
-            if (m_VirtualButtons.TryGetValue(name, out button))
-                return button.GetButtonDown;
-
             return Input.GetButtonDown(name);
         }
 
 
         public override bool GetButtonUp(string name)
         {
-            CrossPlatformInputManager.VirtualButton button;
-            if (m_VirtualButtons.TryGetValue(name, out button))
-                return button.GetButtonUp;
-
             return Input.GetButtonUp(name);
         }
 

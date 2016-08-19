@@ -110,7 +110,7 @@ public class Menu : MonoBehaviour
 
     public void sliderMusicVolume_OnValueChanged(float value)
     {
-        GameSystem.MusicVolume = value;    
+        GameSystem.MusicVolume = value;
     }
 
     public void sliderSfxVolume_OnValueChanged(float value)

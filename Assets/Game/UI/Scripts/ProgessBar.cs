@@ -6,7 +6,15 @@ using System.Collections;
 public class ProgessBar: MonoBehaviour
 {
     [SerializeField]
-    private Image indicator;
+    private RectTransform progressTransform;
+
+    [SerializeField]
+    private Text progressText;
+
+    [SerializeField]
+    private float progressWidth;
+
+    private float fillAmount = 0.1f;
 
     public AsyncOperation operation;
     public AsyncOperation Operation
@@ -14,12 +22,27 @@ public class ProgessBar: MonoBehaviour
         get { return operation;  }
         set { operation = value; }
     }
-
-
-    public float Value
+        
+    public float Value 
     {
-        get {  return indicator.fillAmount;  }
-        set { indicator.fillAmount = value; }
+        get { return fillAmount; }
+        set 
+        {
+            if (value < 0.1f)
+                value = 0.1f;
+            fillAmount = Mathf.Clamp01(value);
+
+            if (progressTransform != null)
+            {
+                progressTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, (progressWidth * fillAmount));
+            }
+        }
+    }
+
+    public string Text
+    {
+        get { return progressText.text; }
+        set { progressText.text = value; }
     }
 
     #region MonoBehviour 
@@ -29,6 +52,6 @@ public class ProgessBar: MonoBehaviour
         if (operation != null)
             Value = operation.progress;
     }
-
+        
     #endregion
 }
