@@ -2135,7 +2135,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1000011475407742, guid: 95377b8c131a34199ab42e721bec4df8, type: 2}
       propertyPath: m_Name
-      value: Slider Music
+      value: Music
       objectReference: {fileID: 0}
     - target: {fileID: 114000013283922890, guid: 95377b8c131a34199ab42e721bec4df8,
         type: 2}
@@ -2171,6 +2171,10 @@ Prefab:
         type: 2}
       propertyPath: m_Value
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000014050057848, guid: 95377b8c131a34199ab42e721bec4df8, type: 2}
+      propertyPath: m_Name
+      value: Slider Music
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 95377b8c131a34199ab42e721bec4df8, type: 2}
@@ -9150,7 +9154,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1000011475407742, guid: 95377b8c131a34199ab42e721bec4df8, type: 2}
       propertyPath: m_Name
-      value: Slider Voices
+      value: Voices
       objectReference: {fileID: 0}
     - target: {fileID: 114000013283922890, guid: 95377b8c131a34199ab42e721bec4df8,
         type: 2}
@@ -9181,6 +9185,10 @@ Prefab:
         type: 2}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000014050057848, guid: 95377b8c131a34199ab42e721bec4df8, type: 2}
+      propertyPath: m_Name
+      value: Slider Voices
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 95377b8c131a34199ab42e721bec4df8, type: 2}
@@ -9586,7 +9594,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1000011475407742, guid: 95377b8c131a34199ab42e721bec4df8, type: 2}
       propertyPath: m_Name
-      value: Slider SFX
+      value: SFX
       objectReference: {fileID: 0}
     - target: {fileID: 114000013283922890, guid: 95377b8c131a34199ab42e721bec4df8,
         type: 2}
@@ -9617,6 +9625,10 @@ Prefab:
         type: 2}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000014050057848, guid: 95377b8c131a34199ab42e721bec4df8, type: 2}
+      propertyPath: m_Name
+      value: Slider SFX
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 95377b8c131a34199ab42e721bec4df8, type: 2}

@@ -22,8 +22,8 @@ public class GameSystem: MonoBehaviour
     #region Preferences
 
     private static readonly string PREF_SOUND_MUSIC_VOLUME = "Sound.Music.Volume";
-    private static readonly string PREF_SOUND_SFX_VOLUME = "Sound.Music.Volume";
-    private static readonly string PREF_SOUND_VOICES_VOLUME = "Sound.Music.Volume";
+    private static readonly string PREF_SOUND_SFX_VOLUME = "Sound.SFX.Volume";
+    private static readonly string PREF_SOUND_VOICES_VOLUME = "Sound.Voices.Volume";
 
     private static void LoadPreferences()
     {
