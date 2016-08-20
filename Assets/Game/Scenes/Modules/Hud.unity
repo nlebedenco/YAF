@@ -101,6 +101,26 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114000010069717164, guid: bf97be49a9480a44ca4fdfd18c37cadc,
+        type: 2}
+      propertyPath: tapEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010069717164, guid: bf97be49a9480a44ca4fdfd18c37cadc,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010069717164, guid: bf97be49a9480a44ca4fdfd18c37cadc,
+        type: 2}
+      propertyPath: tap.HorizontalAxisName
+      value: TapX
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010069717164, guid: bf97be49a9480a44ca4fdfd18c37cadc,
+        type: 2}
+      propertyPath: tap.VerticalAxisName
+      value: TapY
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bf97be49a9480a44ca4fdfd18c37cadc, type: 2}
   m_IsPrefabParent: 0
