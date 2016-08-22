@@ -90,45 +90,6 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &330268639
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 645598101}
-    m_Modifications:
-    - target: {fileID: 4000013650199414, guid: bf97be49a9480a44ca4fdfd18c37cadc, type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000010069717164, guid: bf97be49a9480a44ca4fdfd18c37cadc,
-        type: 2}
-      propertyPath: tapEnabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000010069717164, guid: bf97be49a9480a44ca4fdfd18c37cadc,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000010069717164, guid: bf97be49a9480a44ca4fdfd18c37cadc,
-        type: 2}
-      propertyPath: tap.HorizontalAxisName
-      value: TapX
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000010069717164, guid: bf97be49a9480a44ca4fdfd18c37cadc,
-        type: 2}
-      propertyPath: tap.VerticalAxisName
-      value: TapY
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: bf97be49a9480a44ca4fdfd18c37cadc, type: 2}
-  m_IsPrefabParent: 0
---- !u!4 &330268640 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4000013650199414, guid: bf97be49a9480a44ca4fdfd18c37cadc,
-    type: 2}
-  m_PrefabInternal: {fileID: 330268639}
 --- !u!1 &645598100
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,7 +117,6 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 865216049}
-  - {fileID: 330268640}
   m_Father: {fileID: 1589566867}
   m_RootOrder: 0
 --- !u!1001 &865216048
@@ -165,7 +125,21 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 645598101}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 1000010012303640, guid: 195b32148f9a30f46acc35d797917fa7, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012717496034, guid: 195b32148f9a30f46acc35d797917fa7,
+        type: 2}
+      propertyPath: tapEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012717496034, guid: 195b32148f9a30f46acc35d797917fa7,
+        type: 2}
+      propertyPath: dragLeft.HorizontalAxisName
+      value: LHorizontal
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 195b32148f9a30f46acc35d797917fa7, type: 2}
   m_IsPrefabParent: 0

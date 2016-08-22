@@ -4,8 +4,8 @@ using System;
 using System.Collections;
 
 [RequireComponent(typeof(CharacterController))]
-public class TargetController : MonoBehaviour {
-
+public class TargetController : MonoBehaviour 
+{
     public enum Mode
     {
         TargetRelative,     // Move relative to target
@@ -65,13 +65,18 @@ public class TargetController : MonoBehaviour {
     private Quaternion initialRotation;
     private Quaternion targetRotation;
 
+    [HideInInspector]
+    public bool cameraLock = false;
+
     #region MonoBehaviour
 
-	void Awake () {
+	void Awake () 
+    {
         characterController = GetComponent<CharacterController>();
 	}
 	
-    void Start() {
+    void Start() 
+    {
         leftUseX = (leftController.axesToUse == AxisOption.Both) || (leftController.axesToUse == AxisOption.OnlyHorizontal);
         leftUseY = (leftController.axesToUse == AxisOption.Both) || (leftController.axesToUse == AxisOption.OnlyVertical);
         rightUseX = (rightController.axesToUse == AxisOption.Both) || (rightController.axesToUse == AxisOption.OnlyHorizontal);
@@ -85,11 +90,14 @@ public class TargetController : MonoBehaviour {
         }
     }
 
-	void Update () {
+	void Update () 
+    {
         if (leftUseX)
             leftVirtualAxis.x = CrossPlatformInputManager.GetAxis(leftController.horizontalAxisName);
         if (leftUseY)
             leftVirtualAxis.z = CrossPlatformInputManager.GetAxis(leftController.verticalAxisName);
+        if (cameraLock)
+            leftVirtualAxis.z = Mathf.Clamp01(leftVirtualAxis.z);
 
         if (rightUseX)
             rightVirtualAxis.x = CrossPlatformInputManager.GetAxis(rightController.horizontalAxisName);

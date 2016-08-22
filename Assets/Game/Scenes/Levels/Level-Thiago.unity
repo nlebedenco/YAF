@@ -144,6 +144,21 @@ Transform:
 GameObject:
   m_PrefabParentObject: {fileID: 100166, guid: d0da0e4a1ea563e4cbe021713428bd1f, type: 2}
   m_PrefabInternal: {fileID: 391512982}
+--- !u!114 &391512985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 391512984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b68f27daeb2548bdadf7dafc244467e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smoothTime: 0.3
+  verticalOffset: 0
+  horizontalOffset: 0
+  lockHorizontalMovement: 1
 --- !u!114 &391512986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,6 +181,7 @@ MonoBehaviour:
   controllerMode: 1
   moveSpeed: 5
   rotateSpeed: 10
+  aperture: 90
 --- !u!143 &391512987
 CharacterController:
   m_ObjectHideFlags: 0
