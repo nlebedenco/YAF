@@ -155,10 +155,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b68f27daeb2548bdadf7dafc244467e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smoothTime: 0.3
-  verticalOffset: 0
-  horizontalOffset: 0
+  smoothTime: 1
   lockHorizontalMovement: 1
+  moveOffset: 3
 --- !u!114 &391512986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,6 +181,7 @@ MonoBehaviour:
   moveSpeed: 5
   rotateSpeed: 10
   aperture: 90
+  cameraLock: 0
 --- !u!143 &391512987
 CharacterController:
   m_ObjectHideFlags: 0

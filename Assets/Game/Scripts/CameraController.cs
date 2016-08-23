@@ -4,28 +4,17 @@ using System.Collections;
 public class CameraController : MonoBehaviour {
 
     [SerializeField]
-    private float smoothTime = 0.5f;
+    private float smoothTime = 1.0f;
 
     [SerializeField]
-    private float verticalOffset = 0.0f;
+    private bool lockHorizontalMovement = true;
 
     [SerializeField]
-    private float horizontalOffset = 0.0f;
+    private float moveOffset = 3.0f;
 
-    [SerializeField]
-    private bool lockHorizontalMovement = false;
-
-    [SerializeField]
-    private float moveOffset = 0.0f;
-
-    private Vector3 velocity = Vector3.zero;
     private Vector3 targetPosition = Vector3.zero;
     private TargetController targetController;
-
-    private float maxHorizontalPlayerPosition = 0.0f;
-
-    [SerializeField]
-    private bool moving = false;
+    private Vector3 initialCameraPosition;
 
     #region MonoBehaviour
 
@@ -36,28 +25,25 @@ public class CameraController : MonoBehaviour {
 
     void Start() 
     {
-        //initialCameraPosition = Camera.main.transform.position;
+        initialCameraPosition = Camera.main.transform.position;
     }
 
-    void Update () 
+    void LateUpdate () 
     {
         // Lock the target controllers based on Z axis.
         targetController.cameraLock = (transform.position.z <= Camera.main.transform.position.z);
 
-        if ((transform.position.z - Camera.main.transform.position.z) > moveOffset)
-        {
-            targetPosition = Camera.main.transform.position;
-            targetPosition.z = transform.position.z;
-            moving = true;
-        }
+        targetPosition = initialCameraPosition;
 
-        if (targetPosition.z - Camera.main.transform.position.z < 0.05)
-            moving = false;
+        if (!lockHorizontalMovement)
+            targetPosition.x = transform.position.x;
 
-        if (moving)
-        {
-            Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, targetPosition, smoothTime * Time.deltaTime);
-        }
+        targetPosition.z = Camera.main.transform.position.z;
+
+        if (transform.position.z > (targetPosition.z + moveOffset))
+            targetPosition.z = transform.position.z - moveOffset;
+
+        Camera.main.transform.position = targetPosition;
     }
 
     #endregion
