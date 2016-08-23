@@ -186,8 +186,9 @@ public class GameSystem: MonoBehaviour
 
         level.LevelCompleted += level_LevelCompleted;
         level.LevelFailed += level_LevelFailed;
-        level.ScoreChanged += level_ScoreChanged;
         level.HealthChanged += level_HealthChanged;
+        level.ManaChanged += level_ManaChanged;
+        level.ScoreChanged += level_ScoreChanged;
 
         OnLevelLoaded();
     }
@@ -252,18 +253,22 @@ public class GameSystem: MonoBehaviour
         Hud.Hide();
         Menu.Show();
     }
-
-    private void level_ScoreChanged(float value)
-    {
-        Hud.Score = value;
-    }
-
-
+        
     private void level_HealthChanged(float value)
     {
         Hud.Health = value;
     }
 
+    private void level_ManaChanged(float value)
+    {
+        Hud.Mana = value;
+    }
+
+    private void level_ScoreChanged(float value)
+    {
+        Hud.Score = value;
+    }
+        
     #endregion
 
     private void LoadModules()

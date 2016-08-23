@@ -13,10 +13,10 @@ public class Hud: MonoBehaviour
     private Canvas canvas;
 
     [SerializeField]
-    private Text textHealth;
+    private Slider sliderHealth;
 
     [SerializeField]
-    private Text textScore;
+    private Slider sliderMana;
 
     private float health;
     public float Health
@@ -25,7 +25,18 @@ public class Hud: MonoBehaviour
         set
         {
             health = value;
-            textHealth.text = value.ToString();
+            sliderHealth.value = value;
+        }
+    }
+
+    private float mana;
+    public float Mana
+    {
+        get { return mana; }
+        set
+        {
+            mana = value;
+            sliderMana.value = value;
         }
     }
 
@@ -36,7 +47,7 @@ public class Hud: MonoBehaviour
         set
         {
             score = value;
-            textScore.text = value.ToString();
+            //textScore.text = value.ToString();
         }
     }
 

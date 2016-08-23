@@ -10,8 +10,9 @@ public enum LevelState
 
 public class Level: MonoBehaviour
 {
-    public delegate void ScoreChangedEvent(float value);
     public delegate void HealthChangedEvent(float value);
+    public delegate void ManaChangedEvent(float value);
+    public delegate void ScoreChangedEvent(float value);
 
     public delegate void LevelCompletedEvent();
     public delegate void LevelFailedEvent();
@@ -37,6 +38,8 @@ public class Level: MonoBehaviour
     void Awake()
     {
         GameSystem.RegisterLevel(this);
+        OnHealthChanged(1.0f);
+        OnManaChanged(1.0f);
     }
 
     void OnDestroy()
@@ -52,8 +55,9 @@ public class Level: MonoBehaviour
     public LevelCompletedEvent LevelCompleted;
     public LevelFailedEvent LevelFailed;
 
-    public ScoreChangedEvent ScoreChanged;
     public HealthChangedEvent HealthChanged;
+    public ManaChangedEvent ManaChanged;
+    public ScoreChangedEvent ScoreChanged;
 
     protected void OnLevelCompleted()
     {
@@ -72,6 +76,13 @@ public class Level: MonoBehaviour
     protected void OnHealthChanged(float value)
     {
         var handler = HealthChanged;
+        if (handler != null)
+            handler(value);
+    }
+
+    protected void OnManaChanged(float value)
+    {
+        var handler = ManaChanged;
         if (handler != null)
             handler(value);
     }
