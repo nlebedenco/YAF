@@ -25,7 +25,8 @@ public class AutoAttack : MonoBehaviour
     void FixedUpdate()
     {
         RaycastHit hit;
-        Vector3 fwd = transform.TransformDirection(transform.forward);
+        //Vector3 fwd = transform.TransformDirection(Vector3.forward);
+        Vector3 fwd = transform.forward;
         Vector3 origin = transform.position + transform.up;
         Debug.DrawRay(origin, fwd * Range, Color.red);
         if (cooldown <= 0)
