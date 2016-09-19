@@ -40,6 +40,7 @@ public class Level: MonoBehaviour
         GameSystem.RegisterLevel(this);
         OnHealthChanged(1.0f);
         OnManaChanged(1.0f);
+        Camera.main.transform.position = new Vector3(0, 30, -5);
     }
 
     void OnDestroy()
